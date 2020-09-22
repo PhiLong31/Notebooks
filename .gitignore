@@ -12,3 +12,7 @@
 /captures
 .externalNativeBuild
 .cxx
+
+#ignore .idea
+/.idea
+.idea/
