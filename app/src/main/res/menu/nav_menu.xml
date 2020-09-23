@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/settings_item"
+        android:icon="@drawable/setting"
+        android:tooltipText="@string/setting"
+        android:title="@string/setting" />
+
+    <item
+        android:id="@+id/cloud_item"
+        android:icon="@drawable/cloud"
+        android:tooltipText="@string/cloud"
+        android:title="@string/cloud" />
+
+    <item
+        android:id="@+id/add_item"
+        android:checked="true"
+        android:visible="false"
+        android:icon="@drawable/plus_add_note"
+        android:title="" />
+
+    <item
+        android:id="@+id/gallerys_item"
+        android:icon="@drawable/gallery"
+        android:tooltipText="@string/gallerys"
+        android:title="@string/gallerys" />
+
+    <item
+        android:id="@+id/profile_item"
+        android:icon="@drawable/information"
+        android:tooltipText="@string/profile"
+        android:title="@string/profile" />
+
+</menu>

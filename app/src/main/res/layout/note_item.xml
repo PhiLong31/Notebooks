@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin"
+    android:background="@color/c2"
+    android:orientation="vertical"
+    app:cardCornerRadius="@dimen/radius"
+    card_view:cardUseCompatPadding="true">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/txt_title"
+                style="@style/Base.TextAppearance.AppCompat.Headline"
+                android:layout_width="160dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxHeight="60dp"
+                android:maxLines="1"
+                android:minHeight="50dp"
+                android:paddingLeft="10dp"
+                android:paddingEnd="5dp"
+                android:paddingRight="5dp"
+                android:singleLine="true"
+                android:text="Quản lý dự án"
+                android:textSize="@dimen/size_title"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/checkbox_speech_practive"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/transparent"
+                android:button="@drawable/more"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:tooltipText="More" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_content"
+                style="@style/Base.TextAppearance.AppCompat.Headline"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLength="200"
+                android:minHeight="100dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/lorem"
+                android:textAlignment="viewStart"
+                android:textSize="@dimen/text_size"
+                android:textStyle="normal"
+                card_view:ignore="RtlCompat" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

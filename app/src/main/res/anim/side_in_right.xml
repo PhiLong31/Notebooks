@@ -10,7 +10,7 @@
     <!-- Move -->
 
     <translate
-        android:duration="100"
+        android:duration="300"
         android:fillAfter="true"
         android:startOffset="100"
         android:toXDelta="50%p" />
@@ -22,6 +22,6 @@
     <translate
         android:duration="100"
         android:fillAfter="true"
-        android:startOffset="200"
+        android:startOffset="100"
         android:toXDelta="-50%p" />
 </set>

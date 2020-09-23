@@ -34,8 +34,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 startActivity(new Intent(SplashActivity.this ,MainActivity.class));
-                // HomeActivity.class is the activity to go after showing the splash screen.
-                Toast.makeText(SplashActivity.this, "Tao day", Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override
