@@ -24,7 +24,7 @@
         android:id="@+id/textViewTitleLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Log In!"
+        android:text="Sign up!"
         android:textColor="@color/c0"
         android:textSize="35sp"
         android:textStyle="bold"
@@ -59,7 +59,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.6"
-        tools:context=".MainActivity">
+        tools:context=".activities.MainActivity">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextField"
@@ -158,14 +158,14 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnSignUp"
             android:layout_width="195dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:background="@drawable/bg_btn"
             android:paddingTop="5dp"
-            android:text="Log in"
+            android:text="Sign Up"
             android:textAllCaps="false"
             android:textColor="@color/c0"
             android:textSize="16sp"
@@ -176,7 +176,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Register" />
+            android:text="Sign in" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

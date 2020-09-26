@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app= "http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/imgClock"
-        android:icon="@drawable/clock"
-        android:title="Clock"
+        android:id="@+id/ic_edit"
+        android:icon="@drawable/ic_edit"
+        android:title="Edit"
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/imgPushPin"
-        android:icon="@drawable/pushpin"
-        android:title="Push Pin"
+        android:id="@+id/ic_read"
+        android:icon="@drawable/ic_book"
+        android:title="Read"
         app:showAsAction="always"/>
 
     <group>

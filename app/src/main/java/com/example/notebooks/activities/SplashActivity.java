@@ -1,4 +1,4 @@
-package com.example.notebooks;
+package com.example.notebooks.activities;
 
 import android.content.Intent;
 import android.os.Build;
@@ -8,9 +8,10 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.notebooks.R;
 
 public class SplashActivity extends AppCompatActivity {
     Animation anim;
