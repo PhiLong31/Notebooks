@@ -171,34 +171,12 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/register"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="20dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:weightSum="18">
-
-            <ImageView
-                android:id="@+id/btnTwitter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/twitter" />
-
-            <ImageView
-                android:id="@+id/btnGooglePlus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/google_plus" />
-
-            <ImageView
-                android:id="@+id/btnLinkedIn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/linkedin" />
-        </LinearLayout>
+            android:text="Register" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
