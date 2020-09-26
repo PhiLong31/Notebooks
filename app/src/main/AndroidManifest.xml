@@ -27,7 +27,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".MainActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustNothing">
@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustNothing" />
