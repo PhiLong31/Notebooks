@@ -1,8 +1,8 @@
 package com.example.notebooks;
 
-public interface NoteFeatures {
+public interface NoteActions {
     void addNote(String title, String content);
-    void removeNote(String idNote);
+    void removeNote(String documentId);
     void updateNote(String title, String content);
 
 }
