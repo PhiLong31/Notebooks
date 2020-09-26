@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.notebooks.R;
+import com.example.notebooks.activities.signin.SignInActivity;
 
 public class SplashActivity extends AppCompatActivity {
     Animation anim;
@@ -34,7 +35,9 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startActivity(new Intent(SplashActivity.this ,MainActivity.class));
+                Intent intent = new Intent(SplashActivity.this , SignInActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 finish();
             }
 

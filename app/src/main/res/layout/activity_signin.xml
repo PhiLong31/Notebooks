@@ -99,7 +99,7 @@
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtPassword"
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:imeOptions="actionNext"
@@ -172,11 +172,11 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/register"
+            android:id="@+id/sign_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Register" />
+            android:text="Sign up" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
