@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Notebooks</string>
+    <string name="setting">Setting</string>
+    <string name="cloud">SyncCloud</string>
+    <string name="gallerys">Gallery</string>
+    <string name="profile">Profile</string>
+    <string name="title">My Notes</string>
+    <string name="lorem">Without a doubt, summer is the most anticipated season of the year,and whether or not it’s your favorite.
+        Without a doubt, summer is the most anticipated season of the year,and whether or not it’s your favorite.
+        Without a doubt, summer is the most anticipated season of the year,and whether or not it’s your favorite.
+        Without a doubt, summer is the most anticipated season of the year,and whether or not it’s your favorite.
+        Without a doubt, summer is the most anticipated season of the year,and whether or not it’s your favorite.</string>
 </resources>
