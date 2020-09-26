@@ -5,16 +5,26 @@
         android:id="@+id/imgClock"
         android:icon="@drawable/clock"
         android:title="Clock"
-        app:showAsAction="always"></item>
+        app:showAsAction="always"/>
+
     <item
         android:id="@+id/imgPushPin"
         android:icon="@drawable/pushpin"
         android:title="Push Pin"
-        app:showAsAction="always"></item>
-    <item
-        android:id="@+id/imgTick"
-        android:icon="@drawable/tick"
-        android:title="Tick"
-        app:showAsAction="always"></item>
+        app:showAsAction="always"/>
+
+    <group>
+        <item
+            android:id="@+id/imgTick"
+            android:icon="@drawable/tick"
+            android:title="Tick"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/imgTádick"
+            android:icon="@drawable/tick"
+            android:title="pikachu"
+            app:showAsAction="never" />
+    </group>
 
 </menu>

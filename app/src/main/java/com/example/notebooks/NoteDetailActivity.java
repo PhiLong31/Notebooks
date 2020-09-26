@@ -3,12 +3,19 @@ package com.example.notebooks;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.EditText;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class NoteDetailActivity extends AppCompatActivity {
+    private EditText noteTitle;
+    private EditText edtNote;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +30,10 @@ public class NoteDetailActivity extends AppCompatActivity {
 
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
+        initView();
+
+        Date currentTime = Calendar.getInstance().getTime();
+
     }
 
     @Override
@@ -30,5 +41,12 @@ public class NoteDetailActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_detail, menu);
         return true;
+    }
+
+    private void initView(){
+        noteTitle = findViewById(R.id.note_title);
+/*
+        edtNote = findViewById(R.id.edtNote);
+*/
     }
 }

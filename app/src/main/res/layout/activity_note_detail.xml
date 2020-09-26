@@ -7,41 +7,49 @@
     android:background="@android:color/white"
     tools:context=".NoteDetailActivity">
 
-    <LinearLayout
-        android:id="@+id/relativeLayout"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="3"
+        android:layout_height="?actionBarSize"
+        android:background="@color/c5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/c5" />
+
+    <LinearLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:ignore="MissingConstraints">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:background="@color/c5"
-            android:layout_width="match_parent"
-            app:titleTextColor="@color/c5"
-            android:layout_height="?actionBarSize"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/header_detail"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/note_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
                 android:background="@null"
                 android:fontFamily="@font/montserrat_extrabold"
                 android:gravity="center_vertical"
+                android:paddingStart="@dimen/padding_left"
                 android:paddingLeft="@dimen/padding_left"
+                android:paddingEnd="@dimen/padding_right"
                 android:paddingRight="@dimen/padding_right"
-                android:text="Title"
+                android:hint="Title"
+                android:textColorHint="@android:color/white"
                 android:textColor="@color/c0"
                 android:textSize="@dimen/title"
                 android:textStyle="bold"
@@ -55,11 +63,12 @@
             android:id="@+id/edtNote"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:background="@null"
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:fontFamily="@font/montserrat_medium"
             android:gravity="center_horizontal"
             android:padding="@dimen/padding"
-            android:text="@string/lorem"
             android:textAlignment="viewStart"
             android:textColor="@color/c3"
             android:textSize="16sp"
