@@ -138,6 +138,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
         noteTitle.setFocusableInTouchMode(true);
         edtNote.setFocusable(true);
         edtNote.setFocusableInTouchMode(true);
+        edtNote.requestFocus();
     }
 
     private void hideSoftKeyboard(EditText input) {
