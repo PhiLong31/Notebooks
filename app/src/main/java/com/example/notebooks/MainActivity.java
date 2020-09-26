@@ -27,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
         init();
         detail();
     }
+    private void init() {
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+    }
 
     private void detail() {
         fab.setOnClickListener(new View.OnClickListener() {
@@ -36,9 +39,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    private void init() {
-        fab = (FloatingActionButton) findViewById(R.id.fab);
     }
 }
