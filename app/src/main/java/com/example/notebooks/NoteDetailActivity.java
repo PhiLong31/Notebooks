@@ -105,7 +105,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
     @Override
     public void updateNote(String title, String content) {
 
-    }
+    }   
 
     private void initView() {
         noteTitle = findViewById(R.id.note_title);
