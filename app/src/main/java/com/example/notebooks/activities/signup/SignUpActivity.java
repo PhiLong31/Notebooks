@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.notebooks.R;
+import com.example.notebooks.Utils;
 import com.example.notebooks.activities.signin.SignInActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -81,7 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Can not be empty", Toast.LENGTH_LONG).show();
             edEmail.requestFocus();
             return false;
-        } else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        } else if(!Utils.checkEmail(email)){
             Toast.makeText(getApplicationContext(), "Please enter a valid email", Toast.LENGTH_LONG).show();
             edEmail.requestFocus();
             return false;

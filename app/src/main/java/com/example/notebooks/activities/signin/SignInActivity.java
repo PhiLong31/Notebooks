@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.notebooks.R;
+import com.example.notebooks.Utils;
 import com.example.notebooks.activities.MainActivity;
 import com.example.notebooks.activities.resetpass.Resetpass;
 import com.example.notebooks.activities.signup.SignUpActivity;
@@ -64,7 +65,7 @@ public class SignInActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),
                             "Can not be empty",
                             Toast.LENGTH_LONG).show();
-                else if (!checkEmail(email))
+                else if (!Utils.checkEmail(email))
                     Toast.makeText(getApplicationContext(),
                             "Invalid email",
                             Toast.LENGTH_LONG).show();
@@ -94,11 +95,6 @@ public class SignInActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-
-    private boolean checkEmail(String email) {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     private Task<AuthResult> signIn(String email, String pass) {
