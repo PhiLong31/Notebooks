@@ -50,6 +50,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
         Toolbar myChildToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myChildToolbar);
         myChildToolbar.setNavigationIcon(R.drawable.left_arrow);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         // Get a support ActionBar corresponding to this toolbar
         // Enable the Up button
         ab = getSupportActionBar();
