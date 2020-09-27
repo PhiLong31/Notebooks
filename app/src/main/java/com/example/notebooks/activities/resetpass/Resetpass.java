@@ -50,6 +50,7 @@ public class Resetpass extends AppCompatActivity {
                             "Invalid email",
                             Toast.LENGTH_LONG).show();
                 else {
+                    fbAuth.setLanguageCode("vi");
                     fbAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
