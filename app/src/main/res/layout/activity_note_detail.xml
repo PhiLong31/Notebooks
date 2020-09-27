@@ -11,10 +11,10 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
+        app:contentInsetStart="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:contentInsetStart="0dp"
         app:titleMargin="0dp"
         app:titleTextColor="@color/c5">
 
@@ -27,17 +27,16 @@
 
             <EditText
                 android:id="@+id/note_title"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:background="@null"
+                android:inputType="text"
+                android:ellipsize="end"
                 android:fontFamily="@font/montserrat_extrabold"
-                android:gravity="center_vertical"
                 android:hint="Title"
                 android:maxLines="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints" />
+                android:scrollHorizontally="true" />
 
         </LinearLayout>
 
