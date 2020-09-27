@@ -1,4 +1,4 @@
-package com.example.notebooks;
+package com.example.notebooks.activities;
 
 import android.content.Intent;
 import android.os.Build;
@@ -8,13 +8,19 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.notebooks.R;
+import com.example.notebooks.activities.signin.SignInActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SplashActivity extends AppCompatActivity {
     Animation anim;
     ImageView imageView;
+
+    private FirebaseAuth fbAuth = FirebaseAuth.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +39,10 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startActivity(new Intent(SplashActivity.this ,MainActivity.class));
+                Intent intent = new Intent(SplashActivity.this , SignInActivity.class);
+                if (fbAuth.getCurrentUser() != null) intent.setClass(getApplicationContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 finish();
             }
 

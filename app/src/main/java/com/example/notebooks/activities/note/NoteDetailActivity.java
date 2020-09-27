@@ -1,8 +1,9 @@
-package com.example.notebooks;
+package com.example.notebooks.activities.note;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,11 +13,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.notebooks.R;
 import com.example.notebooks.model.Note;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -48,6 +50,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
         Toolbar myChildToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myChildToolbar);
         myChildToolbar.setNavigationIcon(R.drawable.left_arrow);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         // Get a support ActionBar corresponding to this toolbar
         // Enable the Up button
         ab = getSupportActionBar();
@@ -65,6 +68,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -80,6 +84,12 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
+                return true;
+            case R.id.ic_read:
+                readStatus();
+                return true;
+            case R.id.ic_edit:
+                editStatus();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -105,7 +115,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
     @Override
     public void updateNote(String title, String content) {
 
-    }   
+    }
 
     private void initView() {
         noteTitle = findViewById(R.id.note_title);
@@ -115,15 +125,21 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
     private void readStatus(){
         status = Status.READ;
         noteTitle.setFocusable(false);
+        noteTitle.setFocusableInTouchMode(false);
         edtNote.setFocusable(false);
+        edtNote.setFocusableInTouchMode(false);
         hideSoftKeyboard(noteTitle);
         hideSoftKeyboard(edtNote);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void editStatus(){
         status = Status.EDIT;
         noteTitle.setFocusable(true);
+        noteTitle.setFocusableInTouchMode(true);
         edtNote.setFocusable(true);
+        edtNote.setFocusableInTouchMode(true);
+        edtNote.requestFocus();
     }
 
     private void hideSoftKeyboard(EditText input) {

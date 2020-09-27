@@ -14,20 +14,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/StickMeNotes">
-
+        <activity android:name=".activities.resetpass.Resetpass"
+            android:parentActivityName=".activities.signin.SignInActivity"/>
+        <activity android:name=".activities.signup.SignUpActivity" />
+        <activity android:name=".activities.signin.SignInActivity" />
         <activity
-            android:name=".NoteDetailActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".activities.note.NoteDetailActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustNothing">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".activities.MainActivity" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|adjustNothing"/>
+        <activity
+            android:name=".activities.SplashActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustNothing">
@@ -37,11 +45,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SplashActivity"
-            android:resizeableActivity="false"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|adjustNothing" />
     </application>
 
 </manifest>
