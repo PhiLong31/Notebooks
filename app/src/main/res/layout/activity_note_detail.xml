@@ -34,7 +34,7 @@
                 android:inputType="text"
                 android:ellipsize="end"
                 android:fontFamily="@font/montserrat_extrabold"
-                android:hint="Title"
+                android:hint="@string/hint_detail_note"
                 android:maxLines="1"
                 android:scrollHorizontally="true" />
 

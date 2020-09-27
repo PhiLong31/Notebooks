@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:maxHeight="170dp"
-            android:text="Forget password"
+            android:text="@string/head_line_1_forgot_pass"
             android:textAllCaps="true"
             android:textFontWeight="@integer/google_play_services_version"
             android:textSize="20sp" />
@@ -55,7 +55,7 @@
             android:gravity="center"
             android:maxWidth="350dp"
             android:minWidth="300dp"
-            android:text="Provide your account's email for which you want to reset your password!" />
+            android:text="@string/head_line_2_forgot_pass" />
     </LinearLayout>
 
     <LinearLayout
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:hint="EMAIL ADDRESS"
+            android:hint="@string/hint_email"
             android:textColorHint="@color/c3"
             app:boxStrokeColor="@color/c3">
 
@@ -100,7 +100,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:background="@drawable/bg_btn"
-            android:text="Next"
+            android:text="@string/text_btn_next_forgot"
             android:textColor="@android:color/white"
             android:textFontWeight="@integer/google_play_services_version"
             android:textSize="17sp" />

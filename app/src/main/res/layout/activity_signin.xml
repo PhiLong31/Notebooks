@@ -25,7 +25,7 @@
         android:id="@+id/textViewTitleLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign in!"
+        android:text="@string/sign_in_title"
         android:textColor="@color/c0"
         android:textSize="35sp"
         android:textStyle="bold"
@@ -41,7 +41,7 @@
         android:id="@+id/textViewWelcomeBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to StickMe Note,"
+        android:text="@string/head_line_welcome"
         android:textColor="@color/c0"
         android:textSize="16sp"
         android:textStyle="normal"
@@ -71,7 +71,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="100dp"
             android:layout_marginRight="30dp"
-            android:hint="EMAIL ADDRESS"
+            android:hint="@string/hint_email"
             android:textColorHint="@color/c3"
             app:boxStrokeColor="@color/c3">
 
@@ -92,7 +92,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="30dp"
-            android:hint="PASSWORD"
+            android:hint="@string/hint_pass"
             android:pointerIcon="copy"
             android:textColorHint="@color/c3"
             app:boxStrokeColor="@color/c3"
@@ -135,7 +135,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Remember me!"
+                    android:text="@string/btn_remember"
                     android:textColor="@color/c3"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -151,7 +151,7 @@
                     android:id="@+id/textViewForgotPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Forgot password?"
+                    android:text="@string/btn_forgot_pass"
                     android:textColor="@color/c3"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -166,7 +166,7 @@
             android:layout_marginTop="40dp"
             android:background="@drawable/bg_btn"
             android:paddingTop="5dp"
-            android:text="Sign in"
+            android:text="@string/btn_sign_in"
             android:textAllCaps="false"
             android:textColor="@color/c0"
             android:textSize="16sp"
@@ -178,7 +178,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="Sign up" />
+            android:text="@string/btn_sign_up" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
