@@ -40,7 +40,7 @@
         android:id="@+id/textViewWelcomeBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to StickMe Note,"
+        android:text="Welcome to back,"
         android:textColor="@color/c0"
         android:textSize="16sp"
         android:textStyle="normal"
