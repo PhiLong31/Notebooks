@@ -18,12 +18,18 @@ import com.example.notebooks.Adapter.AdapterNote;
 import com.example.notebooks.Model.Model;
 import com.example.notebooks.R;
 import com.example.notebooks.activities.note.NoteDetailActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -35,19 +41,27 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference myRef;
 
+    private FirebaseAuth fbAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private String userId = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        userId = fbAuth.getUid();
+
         init();
         detail();
         SelectData();
+
+
     }
 
     private void init() {
         fab = findViewById(R.id.fab);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
     }
 
@@ -63,32 +77,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void SelectData() {
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("note");
-        myRef.addValueEventListener(new ValueEventListener() {
+        arrayList = new ArrayList<>();
+        arrayList.clear();
+        db.collection(userId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                arrayList = new ArrayList<>();
-                arrayList.clear();
-                Model model = new Model();
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    model = data.getValue(Model.class);
-                    model.setId(data.getKey());
-                    arrayList.add(model);
-                    Log.d("id", "onDataChange: " + model.getId());
-                    Log.d("title", "onDataChange: " + model.getTitle());
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    for(DocumentSnapshot documentSnapshot : task.getResult().getDocuments()){
+                        Model model = new Model();
+                        model.setTitle(documentSnapshot.getString("title"));
+                        model.setContent(documentSnapshot.getString("content"));
+                        model.setId(documentSnapshot.getId());
+                        arrayList.add(model);
+                    }
+                    adapter = new AdapterNote(MainActivity.this, arrayList);
+                    recyclerView.setAdapter(adapter);
+                } else {
+                    Log.e("error", task.getException().getMessage());
                 }
-
-                adapter = new AdapterNote(MainActivity.this, arrayList);
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
-
     }
 
 }
