@@ -48,6 +48,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
 
     private Status status = Status.ADD;
     private Note note;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,19 +63,12 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
         initView();
 
         Intent intent = getIntent();
-        if (intent != null){
-            status = (Status) intent.getSerializableExtra("status");
-            note = intent.getParcelableExtra("note");
-            switch (status){
-                case READ:
-                    readStatus();
-                    showDetailNote(note);
-                    break;
-                case ADD:
-                    editStatus();
-                    break;
-            }
-        }
+        status = (Status) intent.getSerializableExtra("status");
+        note = intent.getParcelableExtra("note");
+        if (status != null && note != null) {
+            readStatus();
+            showDetailNote(note);
+        } else editStatus();
 
         String userId = fbAuth.getUid();
         assert userId != null;
@@ -97,17 +91,20 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
             case android.R.id.home:
                 String title = noteTitle.getText().toString();
                 String content = noteContent.getText().toString();
-                if (!content.equals("") && status == Status.ADD) {
-                    Log.d("id", "" + item.getTitle());
-                    readStatus();
-                    addNote(title, content);
-                } else if (!content.equals("") && status == Status.UPDATE){
-                    updateNote(title, content);
-                } else {
-                    Intent intent = getParentActivityIntent();
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                }
+                if (!content.equals("")) {
+                    switch (status) {
+                        case ADD:
+                            Log.d("id", "" + item.getTitle());
+                            readStatus();
+                            addNote(title, content);
+                            break;
+                        case UPDATE:
+                            updateNote(title, content);
+                            break;
+                        case READ:
+                            backToParentActivity();
+                    }
+                } else backToParentActivity();
                 return true;
             case R.id.ic_read:
                 readStatus();
@@ -142,7 +139,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
     @Override
     public void updateNote(String title, String content) {
         String documentId = note.getDocumentId();
-        if(!documentId.equals("")){
+        if (!documentId.equals("")) {
             note.setTitle(title);
             note.setContent(content);
             note.setLastTimeUpdated(formatter.format(currentTime));
@@ -151,7 +148,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
         }
     }
 
-    private void showDetailNote(Note note){
+    private void showDetailNote(Note note) {
         noteTitle.setText(note.getTitle());
         noteContent.setText(note.getContent());
     }
@@ -161,7 +158,13 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
         noteContent = findViewById(R.id.edtNote);
     }
 
-    private void readStatus(){
+    private void backToParentActivity() {
+        Intent intent = getParentActivityIntent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    private void readStatus() {
         status = Status.READ;
         noteTitle.setFocusable(false);
         noteTitle.setFocusableInTouchMode(false);
@@ -172,7 +175,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void editStatus(){
+    private void editStatus() {
         status = noteTitle.getText().toString().equals("") ? Status.ADD : Status.UPDATE;
         noteTitle.setFocusable(true);
         noteTitle.setFocusableInTouchMode(true);

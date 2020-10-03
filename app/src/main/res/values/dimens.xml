@@ -8,4 +8,5 @@
     <dimen name="size_title">16dp</dimen>
     <dimen name="padding">10dp</dimen>
     <dimen name="padding_left">10dp</dimen>
+    <dimen name="fab_margin">30dp</dimen>
 </resources>
