@@ -11,10 +11,10 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.notebooks.MainActivity;
 import com.example.notebooks.R;
 import com.example.notebooks.activities.signin.SignInActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class SplashActivity extends AppCompatActivity {
     Animation anim;

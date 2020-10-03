@@ -1,8 +1,8 @@
 package com.example.notebooks;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,10 +15,25 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.example.notebooks.Adapter.AdapterNote;
 import com.example.notebooks.activities.note.NoteDetailActivity;
+import com.example.notebooks.model.Note;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawerLayout;
@@ -30,19 +45,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ImageView img_setting;
     private View view;
 
+    private RecyclerView recyclerView;
+    private ArrayList<Note> arrayList;
+    private AdapterNote adapter;
+
+    private FirebaseAuth fbAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private String userId = null;
+
+    private DocumentReference docRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // my_child_toolbar is defined in the layout file
+        userId = fbAuth.getUid();
         init();
         setSupportActionBar(myChildToolbar);
-
         detail();
+        SelectData();
+
         navigation();
 
-        //click setting
         view = navigationView.getHeaderView(0);
         img_setting = view.findViewById(R.id.img_setting);
         img_setting.setOnClickListener(new View.OnClickListener() {
@@ -52,18 +76,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
-
-
     }
 
     private void navigation() {
-
+        navigationView.setNavigationItemSelectedListener(this);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, myChildToolbar, R.string.drawerOpen, R.string.drawerClose);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         myChildToolbar.setNavigationIcon(R.drawable.navigation);
-
-
     }
 
     private void init() {
@@ -73,7 +93,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         myChildToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         navigationView = findViewById(R.id.navigationView);
 
-
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
     }
 
     private void detail() {
@@ -82,6 +105,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, NoteDetailActivity.class);
                 startActivity(intent);
+            }
+        });
+    }
+
+    public void SelectData() {
+        String formatDocRef = String.format("%s/%s", userId, Utils.KEY_LIST);
+        docRef = db.document(formatDocRef);
+        arrayList = new ArrayList<>();
+        arrayList.clear();
+        docRef.collection(Utils.KEY_LIST_NOTES).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                        Note note = documentSnapshot.toObject(Note.class);
+                        note.setDocumentId(documentSnapshot.getId());
+                        arrayList.add(note);
+                    }
+                    adapter = new AdapterNote(MainActivity.this, arrayList);
+                    recyclerView.setAdapter(adapter);
+                } else {
+                    Log.e("error", task.getException().getMessage());
+                }
             }
         });
     }
@@ -97,10 +143,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.all_note:
-                Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tag:
-                Toast.makeText(MainActivity.this, "Contact", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, NoteTagActivity.class));
                 break;
             case R.id.trash:
                 Toast.makeText(MainActivity.this, "About us", Toast.LENGTH_SHORT).show();

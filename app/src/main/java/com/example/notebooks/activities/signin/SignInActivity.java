@@ -4,25 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.transition.Explode;
 import android.transition.Slide;
-import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.notebooks.MainActivity;
 import com.example.notebooks.R;
 import com.example.notebooks.Utils;
-import com.example.notebooks.activities.MainActivity;
 import com.example.notebooks.activities.resetpass.Resetpass;
 import com.example.notebooks.activities.signup.SignUpActivity;
 import com.google.android.gms.tasks.OnCompleteListener;

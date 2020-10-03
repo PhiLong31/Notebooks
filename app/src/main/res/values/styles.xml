@@ -20,4 +20,5 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
     </style>
+
 </resources>

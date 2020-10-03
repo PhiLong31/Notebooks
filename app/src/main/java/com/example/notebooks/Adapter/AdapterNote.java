@@ -10,8 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.notebooks.MainActivity;
 import com.example.notebooks.R;
-import com.example.notebooks.activities.MainActivity;
 import com.example.notebooks.activities.note.NoteDetailActivity;
 import com.example.notebooks.activities.note.Status;
 import com.example.notebooks.model.Note;
