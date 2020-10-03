@@ -21,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.notebooks.R;
 import com.example.notebooks.model.Note;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -35,6 +36,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
     private ActionBar ab;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth fbAuth = FirebaseAuth.getInstance();
     private CollectionReference colRef;
 
     private Date currentTime = Calendar.getInstance().getTime();
@@ -42,6 +44,9 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
     private SimpleDateFormat formatter = new SimpleDateFormat("HH:mm dd/MM/yyyy");
 
     private Status status = Status.EDIT;
+
+    private String userId = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +61,9 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
         ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        colRef = db.collection("user1");
+        userId = fbAuth.getUid();
+        assert userId != null;
+        colRef = db.collection(userId);
         initView();
     }
 
