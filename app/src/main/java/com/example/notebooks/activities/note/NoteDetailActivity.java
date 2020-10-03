@@ -43,7 +43,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
 
     private Date currentTime = Calendar.getInstance().getTime();
     @SuppressLint("SimpleDateFormat")
-    private SimpleDateFormat formatter = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+    private SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy");
 
     private Status status = Status.EDIT;
 
