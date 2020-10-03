@@ -4,33 +4,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.notebooks.Adapter.AdapterNote;
-import com.example.notebooks.Model.Model;
 import com.example.notebooks.R;
 import com.example.notebooks.Utils;
 import com.example.notebooks.activities.note.NoteDetailActivity;
+import com.example.notebooks.model.Note;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -38,7 +31,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private RecyclerView recyclerView;
-    private ArrayList<Model> arrayList;
+    private ArrayList<Note> arrayList;
     private AdapterNote adapter;
 
     private FirebaseAuth fbAuth = FirebaseAuth.getInstance();
@@ -86,12 +79,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
-                    for(DocumentSnapshot documentSnapshot : task.getResult().getDocuments()){
-                        Model model = new Model();
-                        model.setTitle(documentSnapshot.getString("title"));
-                        model.setContent(documentSnapshot.getString("content"));
-                        model.setId(documentSnapshot.getId());
-                        arrayList.add(model);
+                    for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                        Note note = documentSnapshot.toObject(Note.class);
+                        arrayList.add(note);
                     }
                     adapter = new AdapterNote(MainActivity.this, arrayList);
                     recyclerView.setAdapter(adapter);

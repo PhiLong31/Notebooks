@@ -103,7 +103,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
 
     @Override
     public void addNote(String title, String content) {
-        Note note = new Note(title, content, formatter.format(currentTime), formatter.format(currentTime));
+        Note note = new Note(null, title, content, formatter.format(currentTime), formatter.format(currentTime), null);
         HashMap<String, Object> map = new HashMap<>();
         map.put("name", Utils.KEY_LIST_NAME);
         docRef.set(map).addOnFailureListener(new OnFailureListener() {

@@ -8,18 +8,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.notebooks.Model.Model;
 import com.example.notebooks.R;
 import com.example.notebooks.activities.MainActivity;
+import com.example.notebooks.model.Note;
 
 import java.util.List;
 
 public class AdapterNote extends RecyclerView.Adapter<AdapterNote.ViewHolder> {
 
     private MainActivity context;
-    private List<Model> listnote;
+    private List<Note> listnote;
 
-    public AdapterNote(MainActivity context, List<Model> listnote) {
+    public AdapterNote(MainActivity context, List<Note> listnote) {
         this.context = context;
         this.listnote = listnote;
     }
@@ -33,12 +33,12 @@ public class AdapterNote extends RecyclerView.Adapter<AdapterNote.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Model model = listnote.get(position);
+        Note note = listnote.get(position);
         TextView tv_title = holder.title;
         TextView tv_content = holder.content;
 
-        tv_title.setText(model.getTitle());
-        tv_content.setText(model.getContent());
+        tv_title.setText(note.getTitle());
+        tv_content.setText(note.getContent());
     }
 
     @Override

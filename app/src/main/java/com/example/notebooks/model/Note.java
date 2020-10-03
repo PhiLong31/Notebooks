@@ -8,11 +8,16 @@ public class Note {
     private String content;
     private String tag;
 
-    public Note(String title, String content, String timeCreate, String lastTimeUpdated) {
+    public Note() {
+    }
+
+    public Note(String documentId, String title, String content, String timeCreate, String lastTimeUpdated, String tag) {
+        this.documentId = documentId;
         this.title = title;
         this.timeCreate = timeCreate;
         this.lastTimeUpdated = lastTimeUpdated;
         this.content = content;
+        this.tag = tag;
     }
 
     public String getTag() {
