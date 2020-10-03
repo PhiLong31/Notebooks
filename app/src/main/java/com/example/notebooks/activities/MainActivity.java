@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         userId = fbAuth.getUid();
-
         init();
         detail();
         SelectData();

@@ -72,7 +72,7 @@
             android:gravity="center_horizontal"
             android:padding="@dimen/padding"
             android:textAlignment="viewStart"
-            android:textColor="@color/c3"
+            android:textColor="@color/c6"
             android:textSize="16sp"
             tools:ignore="RtlCompat" />
     </LinearLayout>
