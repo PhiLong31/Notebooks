@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,7 +34,7 @@ import java.util.HashMap;
 
 public class NoteDetailActivity extends AppCompatActivity implements NoteActions {
     private EditText noteTitle;
-    private EditText edtNote;
+    private EditText noteContent;
 
     private ActionBar ab;
 
@@ -45,8 +46,9 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
     @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy");
 
-    private Status status = Status.EDIT;
-
+    private Status status = Status.ADD;
+    private Note note;
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,12 +59,27 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
+        initView();
+
+        Intent intent = getIntent();
+        if (intent != null){
+            status = (Status) intent.getSerializableExtra("status");
+            note = intent.getParcelableExtra("note");
+            switch (status){
+                case READ:
+                    readStatus();
+                    showDetailNote(note);
+                    break;
+                case ADD:
+                    editStatus();
+                    break;
+            }
+        }
 
         String userId = fbAuth.getUid();
         assert userId != null;
         String formatDocRef = String.format("%s/%s", userId, Utils.KEY_LIST);
         docRef = db.document(formatDocRef);
-        initView();
     }
 
     @Override
@@ -79,11 +96,13 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
         switch (item.getItemId()) {
             case android.R.id.home:
                 String title = noteTitle.getText().toString();
-                String content = edtNote.getText().toString();
-                if (!content.equals("") && status == Status.EDIT) {
+                String content = noteContent.getText().toString();
+                if (!content.equals("") && status == Status.ADD) {
                     Log.d("id", "" + item.getTitle());
                     readStatus();
                     addNote(title, content);
+                } else if (!content.equals("") && status == Status.UPDATE){
+                    updateNote(title, content);
                 } else {
                     Intent intent = getParentActivityIntent();
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -103,7 +122,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
 
     @Override
     public void addNote(String title, String content) {
-        Note note = new Note(null, title, content, formatter.format(currentTime), formatter.format(currentTime), null);
+        note = new Note(null, title, content, formatter.format(currentTime), formatter.format(currentTime), null);
         HashMap<String, Object> map = new HashMap<>();
         map.put("name", Utils.KEY_LIST_NAME);
         docRef.set(map).addOnFailureListener(new OnFailureListener() {
@@ -122,32 +141,44 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
 
     @Override
     public void updateNote(String title, String content) {
+        String documentId = note.getDocumentId();
+        if(!documentId.equals("")){
+            note.setTitle(title);
+            note.setContent(content);
+            note.setLastTimeUpdated(formatter.format(currentTime));
+            docRef.collection(Utils.KEY_LIST_NOTES).document(documentId).set(note, SetOptions.merge());
+            readStatus();
+        }
+    }
 
+    private void showDetailNote(Note note){
+        noteTitle.setText(note.getTitle());
+        noteContent.setText(note.getContent());
     }
 
     private void initView() {
         noteTitle = findViewById(R.id.note_title);
-        edtNote = findViewById(R.id.edtNote);
+        noteContent = findViewById(R.id.edtNote);
     }
 
     private void readStatus(){
         status = Status.READ;
         noteTitle.setFocusable(false);
         noteTitle.setFocusableInTouchMode(false);
-        edtNote.setFocusable(false);
-        edtNote.setFocusableInTouchMode(false);
+        noteContent.setFocusable(false);
+        noteContent.setFocusableInTouchMode(false);
         hideSoftKeyboard(noteTitle);
-        hideSoftKeyboard(edtNote);
+        hideSoftKeyboard(noteContent);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void editStatus(){
-        status = Status.EDIT;
+        status = noteTitle.getText().toString().equals("") ? Status.ADD : Status.UPDATE;
         noteTitle.setFocusable(true);
         noteTitle.setFocusableInTouchMode(true);
-        edtNote.setFocusable(true);
-        edtNote.setFocusableInTouchMode(true);
-        edtNote.requestFocus();
+        noteContent.setFocusable(true);
+        noteContent.setFocusableInTouchMode(true);
+        noteContent.requestFocus();
     }
 
     private void hideSoftKeyboard(EditText input) {

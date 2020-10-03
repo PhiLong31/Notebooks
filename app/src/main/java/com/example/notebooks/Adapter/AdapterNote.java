@@ -1,5 +1,7 @@
 package com.example.notebooks.Adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notebooks.R;
 import com.example.notebooks.activities.MainActivity;
+import com.example.notebooks.activities.note.NoteDetailActivity;
+import com.example.notebooks.activities.note.Status;
 import com.example.notebooks.model.Note;
 
 import java.util.List;
@@ -18,7 +22,6 @@ public class AdapterNote extends RecyclerView.Adapter<AdapterNote.ViewHolder> {
 
     private MainActivity context;
     private List<Note> listnote;
-    private TextView textCreateTime;
 
     public AdapterNote(MainActivity context, List<Note> listnote) {
         this.context = context;
@@ -35,9 +38,19 @@ public class AdapterNote extends RecyclerView.Adapter<AdapterNote.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Note note = listnote.get(position);
+        Context context = holder.itemView.getContext();
         holder.title.setText(note.getTitle());
         holder.content.setText(note.getContent());
         holder.createTime.setText(note.getTimeCreate());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, NoteDetailActivity.class);
+                intent.putExtra("status", Status.READ);
+                intent.putExtra("note", note);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

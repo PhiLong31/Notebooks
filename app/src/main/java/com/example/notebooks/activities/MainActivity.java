@@ -16,6 +16,7 @@ import com.example.notebooks.Adapter.AdapterNote;
 import com.example.notebooks.R;
 import com.example.notebooks.Utils;
 import com.example.notebooks.activities.note.NoteDetailActivity;
+import com.example.notebooks.activities.note.Status;
 import com.example.notebooks.model.Note;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
                         Note note = documentSnapshot.toObject(Note.class);
+                        note.setDocumentId(documentSnapshot.getId());
                         arrayList.add(note);
                     }
                     adapter = new AdapterNote(MainActivity.this, arrayList);
