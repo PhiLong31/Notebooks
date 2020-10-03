@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.example.notebooks.Adapter.AdapterNote;
 import com.example.notebooks.Model.Model;
 import com.example.notebooks.R;
+import com.example.notebooks.Utils;
 import com.example.notebooks.activities.note.NoteDetailActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,6 +28,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -38,12 +40,13 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<Model> arrayList;
     private AdapterNote adapter;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
 
     private FirebaseAuth fbAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String userId = null;
+
+    private DocumentReference docRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
         init();
         detail();
         SelectData();
-
-
     }
 
     private void init() {
@@ -77,9 +78,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void SelectData() {
+        String formatDocRef = String.format("%s/%s", userId, Utils.KEY_LIST);
+        docRef = db.document(formatDocRef);
         arrayList = new ArrayList<>();
         arrayList.clear();
-        db.collection(userId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        docRef.collection(Utils.KEY_LIST_NOTES).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){

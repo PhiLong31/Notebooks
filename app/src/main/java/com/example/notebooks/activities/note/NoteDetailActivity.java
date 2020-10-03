@@ -19,15 +19,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.notebooks.R;
+import com.example.notebooks.Utils;
 import com.example.notebooks.model.Note;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 public class NoteDetailActivity extends AppCompatActivity implements NoteActions {
     private EditText noteTitle;
@@ -37,7 +39,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth fbAuth = FirebaseAuth.getInstance();
-    private CollectionReference colRef;
+    private DocumentReference docRef;
 
     private Date currentTime = Calendar.getInstance().getTime();
     @SuppressLint("SimpleDateFormat")
@@ -45,25 +47,21 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
 
     private Status status = Status.EDIT;
 
-    private String userId = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_detail);
-        // my_child_toolbar is defined in the layout file
         Toolbar myChildToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myChildToolbar);
         myChildToolbar.setNavigationIcon(R.drawable.left_arrow);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        // Get a support ActionBar corresponding to this toolbar
-        // Enable the Up button
         ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        userId = fbAuth.getUid();
+        String userId = fbAuth.getUid();
         assert userId != null;
-        colRef = db.collection(userId);
+        String formatDocRef = String.format("%s/%s", userId, Utils.KEY_LIST);
+        docRef = db.document(formatDocRef);
         initView();
     }
 
@@ -106,17 +104,20 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
     @Override
     public void addNote(String title, String content) {
         Note note = new Note(title, content, formatter.format(currentTime), formatter.format(currentTime));
-        colRef.add(note).addOnFailureListener(new OnFailureListener() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("name", Utils.KEY_LIST_NAME);
+        docRef.set(map).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.e("NoteDetail", e.getMessage());
             }
         });
+        docRef.collection(Utils.KEY_LIST_NOTES).add(note);
     }
 
     @Override
     public void removeNote(String documentId) {
-        colRef.document(documentId).delete();
+        /*colRef.document(documentId).delete();*/
     }
 
     @Override

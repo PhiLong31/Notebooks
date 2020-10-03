@@ -6,12 +6,21 @@ public class Note {
     private String timeCreate;
     private String lastTimeUpdated;
     private String content;
+    private String tag;
 
-    public Note(String title , String content, String timeCreate, String lastTimeUpdated) {
+    public Note(String title, String content, String timeCreate, String lastTimeUpdated) {
         this.title = title;
         this.timeCreate = timeCreate;
         this.lastTimeUpdated = lastTimeUpdated;
         this.content = content;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public String getTitle() {
