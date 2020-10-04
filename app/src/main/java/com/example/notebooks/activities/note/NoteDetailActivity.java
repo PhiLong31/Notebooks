@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.notebooks.R;
 import com.example.notebooks.Utils;
+import com.example.notebooks.dialog.AddTagDialog;
 import com.example.notebooks.model.Note;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -83,7 +84,6 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
         return true;
     }
 
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -113,7 +113,9 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
                 editStatus();
                 return true;
             case R.id.item_add_tag:
-                addTag();
+                if(note != null){
+                    openDialogAddTag(note.getDocumentId());
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -156,8 +158,10 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
         noteContent.setText(note.getContent());
     }
 
-    private void addTag() {
-
+    private void openDialogAddTag(String documentID) {
+        AddTagDialog addTagDialog = new AddTagDialog(documentID, getApplicationContext());
+        addTagDialog.setCancelable(false);
+        addTagDialog.show(getSupportFragmentManager(), "Add tag dialog");
     }
 
     private void initView() {
