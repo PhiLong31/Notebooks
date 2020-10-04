@@ -110,11 +110,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void SelectData() {
-        String formatDocRef = String.format("%s/%s", userId, Utils.KEY_LIST);
+        String formatDocRef = String.format("%s/%s", userId, Utils.KEY_LIST_NOTES);
         docRef = db.document(formatDocRef);
         arrayList = new ArrayList<>();
         arrayList.clear();
-        docRef.collection(Utils.KEY_LIST_NOTES).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        docRef.collection(Utils.KEY_NOTES).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {

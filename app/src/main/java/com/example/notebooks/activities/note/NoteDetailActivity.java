@@ -72,7 +72,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
 
         String userId = fbAuth.getUid();
         assert userId != null;
-        String formatDocRef = String.format("%s/%s", userId, Utils.KEY_LIST);
+        String formatDocRef = String.format("%s/%s", userId, Utils.KEY_LIST_NOTES);
         docRef = db.document(formatDocRef);
     }
 
@@ -128,7 +128,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
                 Log.e("NoteDetail", e.getMessage());
             }
         });
-        docRef.collection(Utils.KEY_LIST_NOTES).add(note);
+        docRef.collection(Utils.KEY_NOTES).add(note);
     }
 
     @Override
@@ -143,7 +143,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
             note.setTitle(title);
             note.setContent(content);
             note.setLastTimeUpdated(formatter.format(currentTime));
-            docRef.collection(Utils.KEY_LIST_NOTES).document(documentId).set(note, SetOptions.merge());
+            docRef.collection(Utils.KEY_NOTES).document(documentId).set(note, SetOptions.merge());
             readStatus();
         }
     }

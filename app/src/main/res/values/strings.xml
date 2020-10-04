@@ -13,7 +13,7 @@
         Without a doubt, summer is the most anticipated season of the year,and whether or not it’s your favorite.
         Without a doubt, summer is the most anticipated season of the year,and whether or not it’s your favorite.</string>
 
-    <string name="head_line_welcome">Welcome to StickMe Note,</string>
+    <string name="head_line_welcome">Welcome to StickMe Note</string>
     <string name="hint_detail_note">Title</string>
     <string name="head_line_1_forgot_pass">Forget password</string>
     <string name="head_line_2_forgot_pass">Provide your account\'s email for which you want to reset your password!</string>
@@ -35,5 +35,5 @@
     <string name="title_memory">Memory</string>
     <string name="title_language">Language</string>
     <string name="title_github">Git</string>
-    <string name="title_url_github">"url git "</string>
+    <string name="title_url_github">Logout</string>
 </resources>

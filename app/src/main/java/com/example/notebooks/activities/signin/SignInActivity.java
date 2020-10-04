@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.Slide;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -22,19 +24,34 @@ import com.example.notebooks.Utils;
 import com.example.notebooks.activities.resetpass.Resetpass;
 import com.example.notebooks.activities.signup.SignUpActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 
 public class SignInActivity extends AppCompatActivity {
     private TextView signUp;
-    private Button btnSignUp;
+    private Button btnSignIn;
     private TextInputEditText edEmail;
     private TextInputEditText edPass;
     private TextView forgetPass;
 
     private FirebaseAuth fbAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private DocumentReference docRef;
+
+    private Date currentTime = Calendar.getInstance().getTime();
+    @SuppressLint("SimpleDateFormat")
+    private SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss dd MMM, yyyy");
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -45,6 +62,7 @@ public class SignInActivity extends AppCompatActivity {
         setAnimation();
         setContentView(R.layout.activity_signin);
         initView();
+
         signUp.setOnClickListener(view -> {
             Intent intent = new Intent(this, SignUpActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -52,7 +70,7 @@ public class SignInActivity extends AppCompatActivity {
             finish();
         });
 
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String email = edEmail.getText().toString();
@@ -71,6 +89,33 @@ public class SignInActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                // Add last signed in
+                                FirebaseUser user = fbAuth.getCurrentUser();
+                                String userId = fbAuth.getUid();
+                                assert userId != null;
+                                docRef = db.document(String.format("%s/%s", userId, Utils.KEY_LIST_SIGNED_IN));
+                                HashMap<String, Object> map = new HashMap<>();
+                                map.put("Last Day", formatter.format(currentTime));
+                                docRef.collection(Utils.KEY_TIMES).add(map);
+
+                                docRef = db.document(String.format("%s/%s", userId, Utils.KEY_PROFILE));
+                                map.clear();
+                                assert user != null;
+                                map.put("Email", user.getEmail());
+                                map.put("Display name", user.getDisplayName());
+                                map.put("Phone number", user.getPhoneNumber());
+                                map.put("Photo url", user.getPhotoUrl());
+                                docRef.set(map).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.e("Note add profile", e.getMessage());
+                                    }
+                                });
+
+                                Toast.makeText(SignInActivity.this,
+                                        getResources().getString(R.string.head_line_welcome),
+                                        Toast.LENGTH_LONG).show();
+
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
@@ -99,7 +144,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private void initView() {
         signUp = findViewById(R.id.sign_up);
-        btnSignUp = findViewById(R.id.btnSignUp);
+        btnSignIn = findViewById(R.id.btnSignUp);
         edEmail = findViewById(R.id.edtEmailAddress);
         edPass = findViewById(R.id.password);
         forgetPass = findViewById(R.id.textViewForgotPassword);
