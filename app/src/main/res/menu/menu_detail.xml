@@ -25,6 +25,12 @@
             android:icon="@drawable/tick"
             android:title="pikachu"
             app:showAsAction="never" />
+
+        <item
+            android:id="@+id/item_add_tag"
+            android:icon="@drawable/tick"
+            android:title="Add Tag"
+            app:showAsAction="never" />
     </group>
 
 </menu>

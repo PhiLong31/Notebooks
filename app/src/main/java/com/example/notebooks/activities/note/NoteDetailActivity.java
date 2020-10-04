@@ -112,6 +112,9 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
             case R.id.ic_edit:
                 editStatus();
                 return true;
+            case R.id.item_add_tag:
+                addTag();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -151,6 +154,10 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
     private void showDetailNote(Note note) {
         noteTitle.setText(note.getTitle());
         noteContent.setText(note.getContent());
+    }
+
+    private void addTag() {
+
     }
 
     private void initView() {
