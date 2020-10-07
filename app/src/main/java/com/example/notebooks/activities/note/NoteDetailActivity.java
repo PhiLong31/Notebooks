@@ -50,6 +50,8 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
     private Status status = Status.ADD;
     private Note note;
 
+    private Menu menu;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_detail, menu);
+        this.menu = menu;
         return true;
     }
 
@@ -113,7 +116,7 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
                 editStatus();
                 return true;
             case R.id.item_add_tag:
-                if(note != null){
+                if (note != null) {
                     openDialogAddTag(note.getDocumentId());
                 }
                 return true;
@@ -154,12 +157,13 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
     }
 
     private void showDetailNote(Note note) {
+        menu.findItem(R.id.item_add_tag).setTitle("Edit tag");
         noteTitle.setText(note.getTitle());
         noteContent.setText(note.getContent());
     }
 
     private void openDialogAddTag(String documentID) {
-        AddTagDialog addTagDialog = new AddTagDialog(documentID, getApplicationContext());
+        AddTagDialog addTagDialog = new AddTagDialog(note, getApplicationContext());
         addTagDialog.setCancelable(false);
         addTagDialog.show(getSupportFragmentManager(), "Add tag dialog");
     }

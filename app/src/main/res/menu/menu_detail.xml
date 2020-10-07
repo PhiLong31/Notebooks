@@ -30,6 +30,7 @@
             android:id="@+id/item_add_tag"
             android:icon="@drawable/tick"
             android:title="Add Tag"
+            app:actionViewClass="android.widget.SearchView"
             app:showAsAction="never" />
     </group>
 

@@ -19,24 +19,26 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.notebooks.R;
 import com.example.notebooks.Utils;
+import com.example.notebooks.model.Note;
 import com.example.notebooks.model.Tag;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 public class AddTagDialog extends AppCompatDialogFragment {
     private EditText nameTag;
-    private String docID;
+    private Note note;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth fbAuth = FirebaseAuth.getInstance();
     private DocumentReference docRef;
 
     private Context context;
 
-    public AddTagDialog(@NonNull String docID, @NonNull Context context) {
-        this.docID = docID;
+    public AddTagDialog(@NonNull Note note, @NonNull Context context) {
+        this.note = note;
         this.context = context;
     }
 
@@ -66,7 +68,7 @@ public class AddTagDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if(!docID.equals("")){
+                        if(!note.getDocumentId().equals("")){
                             String name = nameTag.getText().toString();
                             saveTag(name);
                         }
@@ -78,7 +80,7 @@ public class AddTagDialog extends AppCompatDialogFragment {
     private void saveTag(String tagName){
         String formatDocRef = String.format("%s/%s", fbAuth.getUid(), Utils.KEY_LIST_TAGS);
         docRef = db.document(formatDocRef);
-        Tag tag = new Tag(docID, tagName);
+        Tag tag = new Tag(tagName);
         docRef.collection(Utils.KEY_TAGS).add(tag).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
@@ -89,6 +91,12 @@ public class AddTagDialog extends AppCompatDialogFragment {
                 }
             }
         });
+
+        note.setTag(tagName);
+        formatDocRef = String.format("%s/%s", fbAuth.getUid(), Utils.KEY_LIST_NOTES);
+        docRef = db.document(formatDocRef);
+        docRef.collection(Utils.KEY_NOTES).document(note.getDocumentId()).set(note, SetOptions.merge());
+
     }
 
     public void dismiss(){
