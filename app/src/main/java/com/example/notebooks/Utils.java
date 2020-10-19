@@ -8,6 +8,8 @@ public class Utils {
     public static final String KEY_TAGS = "TAGS";
 
     public static final String KEY_LIST_NOTES = "LIST_NOTE";
+    public static final String KEY_LIST_TAGS = "LIST_TAGS";
+
 
     public static final String KEY_LIST_NAME = "List of notes";
     public static final String KEY_TRASH_NAME = "Trash can";
