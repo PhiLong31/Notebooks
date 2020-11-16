@@ -115,10 +115,13 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
             case R.id.ic_edit:
                 editStatus();
                 return true;
-            case R.id.item_add_tag:
+            case R.id.item_menu_edit_tag:
                 if (note != null) {
                     openDialogAddTag(note.getDocumentId());
                 }
+                return true;
+            case R.id.item_menu_remove:
+                removeNote(note.getDocumentId());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -141,7 +144,8 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
 
     @Override
     public void removeNote(String documentId) {
-        /*colRef.document(documentId).delete();*/
+        backToParentActivity();
+        docRef.collection(Utils.KEY_NOTES).document(documentId).delete();
     }
 
     @Override
