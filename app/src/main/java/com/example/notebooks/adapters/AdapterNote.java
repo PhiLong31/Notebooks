@@ -1,4 +1,4 @@
-package com.example.notebooks.Adapter;
+package com.example.notebooks.adapters;
 
 import android.content.Context;
 import android.content.Intent;

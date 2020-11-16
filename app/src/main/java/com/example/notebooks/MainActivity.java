@@ -1,6 +1,7 @@
 package com.example.notebooks;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,7 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.example.notebooks.Adapter.AdapterNote;
+import com.example.notebooks.adapters.AdapterNote;
 import com.example.notebooks.activities.note.NoteDetailActivity;
 import com.example.notebooks.model.Note;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private View view;
 
     private RecyclerView recyclerView;
-    private ArrayList<Note> arrayList;
+    private static ArrayList<Note> arrayList = new ArrayList<>();
     private AdapterNote adapter;
 
     private FirebaseAuth fbAuth = FirebaseAuth.getInstance();
@@ -112,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void SelectData() {
         String formatDocRef = String.format("%s/%s", userId, Utils.KEY_LIST_NOTES);
         docRef = db.document(formatDocRef);
-        arrayList = new ArrayList<>();
         arrayList.clear();
         docRef.collection(Utils.KEY_NOTES).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -156,4 +156,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return false;
     }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+    }
+
 }

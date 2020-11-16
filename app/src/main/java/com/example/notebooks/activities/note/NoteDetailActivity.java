@@ -157,7 +157,6 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
     }
 
     private void showDetailNote(Note note) {
-        menu.findItem(R.id.item_add_tag).setTitle("Edit tag");
         noteTitle.setText(note.getTitle());
         noteContent.setText(note.getContent());
     }

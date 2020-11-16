@@ -31,7 +31,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_toLeftOf="@id/checkbox_speech_practive"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:layout_marginTop="15dp"
@@ -40,9 +39,7 @@
                 android:paddingLeft="10dp"
                 android:text="Quản lý dự án"
                 android:textSize="@dimen/size_title"
-                android:textStyle="bold"
-                android:layout_toStartOf="@id/checkbox_speech_practive" />
-
+                android:textStyle="bold"/>
             <TextView
                 android:layout_below="@+id/txt_title"
                 android:id="@+id/text_create_time"
@@ -54,14 +51,6 @@
                 android:text="asdasdad"
                 android:textColor="@color/c3" />
 
-            <CheckBox
-                android:id="@+id/checkbox_speech_practive"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_margin="15dp"
-                android:button="@drawable/more" />
         </RelativeLayout>
 
         <LinearLayout
