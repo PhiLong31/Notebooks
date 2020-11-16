@@ -56,6 +56,10 @@ public class AddTagDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.tag_item, null);
         nameTag = view.findViewById(R.id.ed_name_tag);
+        if (note.getTag() != null && !note.getTag().equals("")){
+            nameTag.setText(note.getTag());
+            nameTag.setSelection(note.getTag().length());
+        }
         builder.setView(view)
                 .setCancelable(false)
                 .setTitle("")
