@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.search_item:
                 Toast.makeText(MainActivity.this, "Search item", Toast.LENGTH_SHORT).show();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
