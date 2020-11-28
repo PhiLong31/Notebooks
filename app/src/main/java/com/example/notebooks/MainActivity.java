@@ -140,18 +140,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_menu_remove_all:
+                Toast.makeText(MainActivity.this, "Remove all", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.search_item:
+                Toast.makeText(MainActivity.this, "Search item", Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.all_note:
                 break;
             case R.id.tag:
-                startActivity(new Intent(this, NoteTagActivity.class));
+                Intent intent = new Intent(this, NoteTagActivity.class);
+                intent.putParcelableArrayListExtra("notes", arrayList);
+                startActivity(intent);
                 break;
             case R.id.trash:
-                Toast.makeText(MainActivity.this, "About us", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Trash", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.profile:
-                Toast.makeText(MainActivity.this, "Log out", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
                 break;
         }
         return false;

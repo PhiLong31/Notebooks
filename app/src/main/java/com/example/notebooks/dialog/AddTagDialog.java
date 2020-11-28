@@ -54,7 +54,7 @@ public class AddTagDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.tag_item, null);
+        View view = inflater.inflate(R.layout.layout_add_tag, null);
         nameTag = view.findViewById(R.id.ed_name_tag);
         if (note.getTag() != null && !note.getTag().equals("")){
             nameTag.setText(note.getTag());

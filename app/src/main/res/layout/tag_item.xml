@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
-    android:minHeight="250dp"
-    android:padding="15dp">
+    android:layout_height="50dp"
+    android:maxHeight="20dp"
+    android:paddingVertical="5dp"
+    android:paddingHorizontal="15dp">
+
+    <ImageView
+        android:id="@+id/ic_hashtag"
+        android:layout_width="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_hashtag" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Add tag"
-        style="@style/TextAppearance.AppCompat.Headline"
-        android:textColor="@color/c6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/ic_hashtag"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingLeft="5dp"
+        android:text="Hahahahahaha" />
 
-    <EditText
-        android:id="@+id/ed_name_tag"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_hashtag"
-        android:drawableLeft="@drawable/ic_hashtag"
-        android:drawablePadding="10dp"
-        android:hint="Create new tag"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.448"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.973" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:text="3"
+        android:gravity="center"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+</RelativeLayout>
