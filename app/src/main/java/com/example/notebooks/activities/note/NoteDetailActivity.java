@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.notebooks.R;
 import com.example.notebooks.Utils;
+import com.example.notebooks.dialog.AddTagDialog;
 import com.example.notebooks.model.Note;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,6 +49,8 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
 
     private Status status = Status.ADD;
     private Note note;
+
+    private Menu menu;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -80,9 +83,9 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_detail, menu);
+        this.menu = menu;
         return true;
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -112,8 +115,13 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
             case R.id.ic_edit:
                 editStatus();
                 return true;
-            case R.id.item_add_tag:
-                addTag();
+            case R.id.item_menu_edit_tag:
+                if (note != null) {
+                    openDialogAddTag(note.getDocumentId());
+                }
+                return true;
+            case R.id.item_menu_remove:
+                removeNote(note.getDocumentId());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -136,7 +144,8 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
 
     @Override
     public void removeNote(String documentId) {
-        /*colRef.document(documentId).delete();*/
+        backToParentActivity();
+        docRef.collection(Utils.KEY_NOTES).document(documentId).delete();
     }
 
     @Override
@@ -156,8 +165,10 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
         noteContent.setText(note.getContent());
     }
 
-    private void addTag() {
-
+    private void openDialogAddTag(String documentID) {
+        AddTagDialog addTagDialog = new AddTagDialog(note, getApplicationContext());
+        addTagDialog.setCancelable(false);
+        addTagDialog.show(getSupportFragmentManager(), "Add tag dialog");
     }
 
     private void initView() {

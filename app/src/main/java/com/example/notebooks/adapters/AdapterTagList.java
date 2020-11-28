@@ -1,4 +1,4 @@
-package com.example.notebooks.Adapter;
+package com.example.notebooks.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,12 +18,12 @@ import com.example.notebooks.model.Note;
 
 import java.util.List;
 
-public class AdapterNote extends RecyclerView.Adapter<AdapterNote.ViewHolder> {
+public class AdapterTagList extends RecyclerView.Adapter<AdapterTagList.ViewHolder> {
 
-    private MainActivity context;
+    private Context context;
     private List<Note> listnote;
 
-    public AdapterNote(MainActivity context, List<Note> listnote) {
+    public AdapterTagList(Context context, List<Note> listnote) {
         this.context = context;
         this.listnote = listnote;
     }

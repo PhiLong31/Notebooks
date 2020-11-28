@@ -15,21 +15,21 @@
 
     <group>
         <item
-            android:id="@+id/imgTick"
+            android:id="@+id/item_menu_tick"
             android:icon="@drawable/tick"
             android:title="Tick"
             app:showAsAction="never" />
 
         <item
-            android:id="@+id/imgTádick"
+            android:id="@+id/item_menu_edit_tag"
             android:icon="@drawable/tick"
-            android:title="pikachu"
+            android:title="Edit tag"
             app:showAsAction="never" />
 
         <item
-            android:id="@+id/item_add_tag"
+            android:id="@+id/item_menu_remove"
             android:icon="@drawable/tick"
-            android:title="Add Tag"
+            android:title="Remove"
             app:showAsAction="never" />
     </group>
 

@@ -9,11 +9,12 @@
         app:showAsAction="always"
         android:title="@string/search" />
 
-    <item
-        android:id="@+id/popup_item"
-        android:icon="@drawable/menu_popup"
-        android:tooltipText="@string/menu_popup"
-        app:showAsAction="always"
-        android:title="@string/menu_popup" />
+    <group>
+        <item
+            android:id="@+id/item_menu_remove_all"
+            android:icon="@drawable/tick"
+            android:title="Remove all"
+            app:showAsAction="never" />
+    </group>
 
 </menu>
