@@ -32,9 +32,9 @@ public class NoteTagActivity extends AppCompatActivity {
         setContentView(R.layout.activity_note_tag);
         init();
         // my_child_toolbar is defined in the layout file
-        Toolbar myChildToolbar = (Toolbar) findViewById(R.id.tag_toolbar);
+        Toolbar myChildToolbar = (Toolbar) findViewById(R.id.tag_toolbar_tag);
         setSupportActionBar(myChildToolbar);
-        getSupportActionBar().setTitle("Tags");
+        getSupportActionBar().setTitle("List of tags");
         myChildToolbar.setNavigationIcon(R.drawable.left_arrow);
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();

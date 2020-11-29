@@ -1,8 +1,8 @@
 package com.example.notebooks;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,7 +12,6 @@ import android.os.Bundle;
 
 import com.example.notebooks.adapters.AdapterTagList;
 import com.example.notebooks.model.Note;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -25,8 +24,17 @@ public class NoteTagListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_tag_list);
+        // my_child_toolbar is defined in the layout file
         notes = getIntent().getParcelableArrayListExtra("notes");
         numberCol = notes.size() > 1 ? 2 : 1;
+        Toolbar myChildToolbar = (Toolbar) findViewById(R.id.tag_toolbar_tag_list);
+        setSupportActionBar(myChildToolbar);
+        getSupportActionBar().setTitle(notes.get(0).getTag());
+        myChildToolbar.setNavigationIcon(R.drawable.left_arrow);
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
         init();
     }
 
