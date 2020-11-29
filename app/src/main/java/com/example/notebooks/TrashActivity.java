@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.notebooks.adapters.AdapterNote;
 import com.example.notebooks.adapters.AdapterTagList;
+import com.example.notebooks.adapters.AdapterTrash;
 import com.example.notebooks.model.Note;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,7 +38,7 @@ public class TrashActivity extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String userId = null;
     private DocumentReference docRef;
-    private AdapterTagList adapter;
+    private AdapterTrash adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +54,7 @@ public class TrashActivity extends AppCompatActivity {
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
         init();
+        selectData();
     }
 
     public void selectData() {
@@ -69,7 +71,9 @@ public class TrashActivity extends AppCompatActivity {
                         notes.add(note);
                     }
                     if (notes.size() != 0){
-                        adapter = new AdapterTagList(TrashActivity.this, notes);
+                        recyclerView.setVisibility(View.VISIBLE);
+                        tvEmptyNote.setVisibility(View.GONE);
+                        adapter = new AdapterTrash(TrashActivity.this, notes);
                         recyclerView.setAdapter(adapter);
                     } else {
                         recyclerView.setVisibility(View.GONE);
@@ -85,7 +89,7 @@ public class TrashActivity extends AppCompatActivity {
     private void init() {
         tvEmptyNote = findViewById(R.id.tv_empty_note);
         recyclerView = findViewById(R.id.recyclerView_trash);
-        adapter = new AdapterTagList(this, notes);
+        adapter = new AdapterTrash(this, notes);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
