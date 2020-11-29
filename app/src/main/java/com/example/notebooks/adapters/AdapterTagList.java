@@ -45,7 +45,7 @@ public class AdapterTagList extends RecyclerView.Adapter<AdapterTagList.ViewHold
             public void onClick(View view) {
                 ArrayList<Note> notesContain = new ArrayList<>();
                 for (Note note : notes){
-                    if (note.getTag().equals(tag.getTagName())){
+                    if (note.getTag() != null && note.getTag().equals(tag.getTagName())){
                         notesContain.add(note);
                     }
                 }

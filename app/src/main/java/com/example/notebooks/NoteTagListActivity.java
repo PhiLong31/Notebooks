@@ -62,11 +62,13 @@ public class NoteTagListActivity extends AppCompatActivity {
         Map<String, Integer> map = new HashMap<>();
         for (Note note : arrayList) {
             String tag = note.getTag();
-            if (map.containsKey(tag)) {
-                int number = map.get(tag);
-                map.put(tag, ++number);
-            } else {
-                map.put(tag, 1);
+            if (tag != null){
+                if (map.containsKey(tag)) {
+                    int number = map.get(tag);
+                    map.put(tag, ++number);
+                } else {
+                    map.put(tag, 1);
+                }
             }
         }
         return map;
