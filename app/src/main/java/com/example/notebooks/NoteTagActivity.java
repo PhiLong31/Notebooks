@@ -1,80 +1,49 @@
 package com.example.notebooks;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
+import android.os.Bundle;
 
 import com.example.notebooks.adapters.AdapterTag;
 import com.example.notebooks.model.Note;
-import com.example.notebooks.model.TagItemAdapter;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class NoteTagActivity extends AppCompatActivity {
-    private FloatingActionButton fab;
     private ArrayList<Note> notes;
-    private ArrayList<TagItemAdapter> tags = new ArrayList<>();
     private RecyclerView recyclerView;
+    private int numberCol = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_note_tag);
-        init();
+        setContentView(R.layout.activity_note_tag_list);
         // my_child_toolbar is defined in the layout file
-        Toolbar myChildToolbar = (Toolbar) findViewById(R.id.tag_toolbar_tag);
+        notes = getIntent().getParcelableArrayListExtra("notes");
+        numberCol = notes.size() > 1 ? 2 : 1;
+        Toolbar myChildToolbar = (Toolbar) findViewById(R.id.tag_toolbar_tag_list);
         setSupportActionBar(myChildToolbar);
-        getSupportActionBar().setTitle("List of tags");
+        getSupportActionBar().setTitle(notes.get(0).getTag());
         myChildToolbar.setNavigationIcon(R.drawable.left_arrow);
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
+        init();
+    }
 
-        Intent intent = getIntent();
-        notes = intent.getParcelableArrayListExtra("notes");
-        Map<String, Integer> map = getMapTags(notes);
-        for (String key : map.keySet()){
-            tags.add(new TagItemAdapter(key, String.valueOf(map.get(key))));
-        }
-        AdapterTag adapterTag = new AdapterTag(this, tags, notes);
-        recyclerView.setAdapter(adapterTag);
+    private void init() {
+        recyclerView = findViewById(R.id.recyclerView_list_tags);
+        AdapterTag adapterTagList = new AdapterTag(this, notes);
+        recyclerView.setAdapter(adapterTagList);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
-    }
-
-    private void init(){
-        recyclerView = findViewById(R.id.recyclerView_tag);
-    }
-
-    private Map<String, Integer> getMapTags(ArrayList<Note> arrayList) {
-        Map<String, Integer> map = new HashMap<>();
-        for (Note note : arrayList) {
-            String tag = note.getTag();
-            if (map.containsKey(tag)) {
-                int number = map.get(tag);
-                map.put(tag, ++number);
-            } else {
-                map.put(tag, 1);
-            }
-        }
-        return map;
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.nav_menu, menu);
-        return true;
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(numberCol, LinearLayoutManager.VERTICAL));
     }
 }

@@ -6,54 +6,47 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.notebooks.NoteTagListActivity;
 import com.example.notebooks.R;
+import com.example.notebooks.activities.note.NoteDetailActivity;
+import com.example.notebooks.activities.note.Status;
 import com.example.notebooks.model.Note;
-import com.example.notebooks.model.TagItemAdapter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class AdapterTag extends RecyclerView.Adapter<AdapterTag.ViewHolder> {
-    private Context context;
-    private ArrayList<TagItemAdapter> tags;
-    private ArrayList<Note> notes;
 
-    public AdapterTag(Context context, ArrayList<TagItemAdapter> tags, ArrayList<Note> notes) {
+    private Context context;
+    private List<Note> listnote;
+
+    public AdapterTag(Context context, List<Note> listnote) {
         this.context = context;
-        this.tags = tags;
-        this.notes = notes;
+        this.listnote = listnote;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tag_item, parent, false);
-        return new ViewHolder(view);
+        View objview = LayoutInflater.from(context).inflate(R.layout.note_item, parent, false);
+        return new ViewHolder(objview);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TagItemAdapter tag = tags.get(position);
-        holder.textViewTag.setText(tag.getTagName());
-        holder.textViewNumberTag.setText(tag.getNumberTag());
+        Note note = listnote.get(position);
+        Context context = holder.itemView.getContext();
+        holder.title.setText(note.getTitle());
+        holder.content.setText(note.getContent());
+        holder.createTime.setText(note.getTimeCreate());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<Note> notesContain = new ArrayList<>();
-                for (Note note : notes){
-                    if (note.getTag().equals(tag.getTagName())){
-                        notesContain.add(note);
-                    }
-                }
-                Intent intent = new Intent(context, NoteTagListActivity.class);
-                intent.putParcelableArrayListExtra("notes", notesContain);
+                Intent intent = new Intent(context, NoteDetailActivity.class);
+                intent.putExtra("status", Status.READ);
+                intent.putExtra("note", note);
                 context.startActivity(intent);
             }
         });
@@ -61,17 +54,16 @@ public class AdapterTag extends RecyclerView.Adapter<AdapterTag.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return tags.size();
+        return listnote.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewTag;
-        TextView textViewNumberTag;
-
+        TextView title, content, createTime;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewTag = itemView.findViewById(R.id.tv_tag);
-            textViewNumberTag = itemView.findViewById(R.id.tv_number_tag);
+            title = (TextView) itemView.findViewById(R.id.txt_title);
+            content = (TextView) itemView.findViewById(R.id.txt_content);
+            createTime = (TextView) itemView.findViewById(R.id.text_create_time);
         }
     }
 }

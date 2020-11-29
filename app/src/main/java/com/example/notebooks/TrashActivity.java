@@ -14,8 +14,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.notebooks.adapters.AdapterNote;
-import com.example.notebooks.adapters.AdapterTagList;
 import com.example.notebooks.adapters.AdapterTrash;
 import com.example.notebooks.model.Note;
 import com.google.android.gms.tasks.OnCompleteListener;

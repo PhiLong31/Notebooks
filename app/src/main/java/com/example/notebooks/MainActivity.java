@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.all_note:
                 break;
             case R.id.tag:
-                Intent intent = new Intent(this, NoteTagActivity.class);
+                Intent intent = new Intent(this, NoteTagListActivity.class);
                 intent.putParcelableArrayListExtra("notes", arrayList);
                 startActivity(intent);
                 break;

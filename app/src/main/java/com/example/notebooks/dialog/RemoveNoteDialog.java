@@ -27,7 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class TrashNoteDialog extends AppCompatDialogFragment {
+public class RemoveNoteDialog extends AppCompatDialogFragment {
     private EditText nameTag;
     private Note note;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -37,7 +37,7 @@ public class TrashNoteDialog extends AppCompatDialogFragment {
     private Context context;
     private Intent intentParent;
 
-    public TrashNoteDialog(@NonNull Note note, @NonNull Intent intentParent, @NonNull Context context) {
+    public RemoveNoteDialog(@NonNull Note note, @NonNull Intent intentParent, @NonNull Context context) {
         this.note = note;
         this.context = context;
         this.intentParent = intentParent;
@@ -55,33 +55,48 @@ public class TrashNoteDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.layout_trash_tag, null);
+        View view = inflater.inflate(R.layout.layout_remove_tag, null);
         builder.setView(view)
-                .setCancelable(false)
                 .setTitle("")
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Undo", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        undo();
                     }
                 })
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Remove", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        convertToTrash();
+                        removeNote();
                     }
                 });
         return builder.create();
     }
 
-    private void convertToTrash() {
+    private void removeNote() {
         String formatDocRef = String.format("%s/%s", fbAuth.getUid(), Utils.KEY_LIST_TRASH);
         docRef = db.document(formatDocRef);
-        docRef.collection(Utils.KEY_TRASH).add(note).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+        docRef.collection(Utils.KEY_TRASH).document(note.getDocumentId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(context, "Deleted!", Toast.LENGTH_LONG).show();
+                    context.startActivity(intentParent);
+                } else {
+                    Toast.makeText(context, "Failed", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private void undo() {
+        String formatDocRef = String.format("%s/%s", fbAuth.getUid(), Utils.KEY_LIST_NOTES);
+        docRef = db.document(formatDocRef);
+        docRef.collection(Utils.KEY_NOTES).add(note).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(context, "Moved in trash!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Has been undone!", Toast.LENGTH_LONG).show();
                     context.startActivity(intentParent);
                 } else {
                     Toast.makeText(context, "Failed", Toast.LENGTH_LONG).show();
@@ -89,10 +104,11 @@ public class TrashNoteDialog extends AppCompatDialogFragment {
             }
         });
 
-        formatDocRef = String.format("%s/%s", fbAuth.getUid(), Utils.KEY_LIST_NOTES);
+        formatDocRef = String.format("%s/%s", fbAuth.getUid(), Utils.KEY_LIST_TRASH);
         docRef = db.document(formatDocRef);
-        docRef.collection(Utils.KEY_NOTES).document(note.getDocumentId()).delete();
+        docRef.collection(Utils.KEY_TRASH).document(note.getDocumentId()).delete();
     }
+
 
     public void dismiss() {
         this.dismiss();

@@ -14,11 +14,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/StickMeNotes">
-        <activity android:name=".TrashActivity"
-            android:parentActivityName=".MainActivity"/>
         <activity
-            android:name=".NoteTagListActivity"
+            android:name=".TrashActivity"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".NoteTagActivity" />
+
+        <activity android:name=".NoteTagListActivity"
+            android:parentActivityName=".MainActivity"/>
+
         <activity
             android:name=".activities.resetpass.Resetpass"
             android:parentActivityName=".activities.signin.SignInActivity" />
@@ -46,17 +50,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity
-            android:name=".NoteTagActivity"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|adjustNothing">
 
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
         <activity
             android:name=".MainActivity"
             android:resizeableActivity="false"
