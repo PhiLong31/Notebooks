@@ -17,12 +17,12 @@ import com.example.notebooks.model.Note;
 
 import java.util.List;
 
-public class AdapterTag extends RecyclerView.Adapter<AdapterTag.ViewHolder> {
+public class AdapterSearch extends RecyclerView.Adapter<AdapterSearch.ViewHolder> {
 
     private Context context;
     private List<Note> listnote;
 
-    public AdapterTag(Context context, List<Note> listnote) {
+    public AdapterSearch(Context context, List<Note> listnote) {
         this.context = context;
         this.listnote = listnote;
     }
@@ -50,6 +50,11 @@ public class AdapterTag extends RecyclerView.Adapter<AdapterTag.ViewHolder> {
                 context.startActivity(intent);
             }
         });
+    }
+
+    public void search(List<Note> notes){
+        listnote = notes;
+        notifyDataSetChanged();
     }
 
     @Override

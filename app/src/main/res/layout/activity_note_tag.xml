@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".NoteTagActivity">
+    tools:context=".NoteTagListActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tag_toolbar"
+        android:id="@+id/tag_toolbar_tag"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"

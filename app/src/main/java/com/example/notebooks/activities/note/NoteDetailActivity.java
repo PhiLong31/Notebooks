@@ -21,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.notebooks.R;
 import com.example.notebooks.Utils;
 import com.example.notebooks.dialog.AddTagDialog;
+import com.example.notebooks.dialog.TrashNoteDialog;
 import com.example.notebooks.model.Note;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -144,8 +145,9 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
 
     @Override
     public void removeNote(String documentId) {
-        backToParentActivity();
-        docRef.collection(Utils.KEY_NOTES).document(documentId).delete();
+        openDialogTrash();
+//        docRef.collection(Utils.KEY_NOTES).document(documentId).delete();
+
     }
 
     @Override
@@ -169,6 +171,14 @@ public class NoteDetailActivity extends AppCompatActivity implements NoteActions
         AddTagDialog addTagDialog = new AddTagDialog(note, getApplicationContext());
         addTagDialog.setCancelable(false);
         addTagDialog.show(getSupportFragmentManager(), "Add tag dialog");
+    }
+
+    private void openDialogTrash() {
+        Intent intent = getParentActivityIntent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        TrashNoteDialog removeNoteDialog = new TrashNoteDialog(note, intent, getApplicationContext());
+        removeNoteDialog.setCancelable(false);
+        removeNoteDialog.show(getSupportFragmentManager(), "Trash dialog");
     }
 
     private void initView() {
