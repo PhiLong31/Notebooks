@@ -18,7 +18,8 @@
             android:name=".TrashActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".NoteTagActivity" />
+            android:name=".NoteTagActivity"
+            android:parentActivityName=".MainActivity"/>
 
         <activity android:name=".NoteTagListActivity"
             android:parentActivityName=".MainActivity"/>

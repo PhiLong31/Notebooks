@@ -1,5 +1,6 @@
 package com.example.notebooks;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.notebooks.adapters.AdapterTag;
 import com.example.notebooks.model.Note;
@@ -46,4 +49,5 @@ public class NoteTagActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(numberCol, LinearLayoutManager.VERTICAL));
     }
+
 }
