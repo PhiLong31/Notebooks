@@ -1,7 +1,7 @@
 package com.example.notebooks;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         init();
         setSupportActionBar(myChildToolbar);
         detail();
-        SelectData();
+        selectData();
 
         navigation();
 
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    public void SelectData() {
+    public void selectData() {
         String formatDocRef = String.format("%s/%s", userId, Utils.KEY_LIST_NOTES);
         docRef = db.document(formatDocRef);
         arrayList.clear();
@@ -152,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 break;
             case R.id.trash:
-                Toast.makeText(MainActivity.this, "Trash", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, TrashActivity.class));
                 break;
             case R.id.profile:
                 Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();

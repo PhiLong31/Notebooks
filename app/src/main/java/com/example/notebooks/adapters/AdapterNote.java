@@ -20,10 +20,10 @@ import java.util.List;
 
 public class AdapterNote extends RecyclerView.Adapter<AdapterNote.ViewHolder> {
 
-    private MainActivity context;
+    private Context context;
     private List<Note> listnote;
 
-    public AdapterNote(MainActivity context, List<Note> listnote) {
+    public AdapterNote(Context context, List<Note> listnote) {
         this.context = context;
         this.listnote = listnote;
     }

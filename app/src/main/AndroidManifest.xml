@@ -14,8 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/StickMeNotes">
-        <activity android:name=".NoteTagListActivity"
+        <activity android:name=".TrashActivity"
             android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".NoteTagListActivity"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".activities.resetpass.Resetpass"
             android:parentActivityName=".activities.signin.SignInActivity" />
