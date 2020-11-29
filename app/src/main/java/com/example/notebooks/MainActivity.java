@@ -146,7 +146,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(MainActivity.this, "Remove all", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.search_item:
-                Toast.makeText(MainActivity.this, "Search item", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, SearchActivity.class);
+                intent.putParcelableArrayListExtra("notes", arrayList);
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);

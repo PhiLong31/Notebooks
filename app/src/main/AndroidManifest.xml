@@ -14,16 +14,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/StickMeNotes">
+        <activity android:name=".SearchActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".TrashActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".NoteTagActivity"
-            android:parentActivityName=".MainActivity"/>
-
-        <activity android:name=".NoteTagListActivity"
-            android:parentActivityName=".MainActivity"/>
-
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".NoteTagListActivity"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".activities.resetpass.Resetpass"
             android:parentActivityName=".activities.signin.SignInActivity" />
@@ -51,7 +52,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:resizeableActivity="false"
